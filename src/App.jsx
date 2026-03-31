@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-// 에러가 났던 Instagram, Facebook 등을 빼고 확실한 것들만 넣었습니다.
-import { Menu, X, ChevronRight, Award, Mail, Phone, MapPin, Search, Globe as GlobeIcon, Play, FileText, ExternalLink } from 'lucide-react';
+import { 
   Menu, 
   X, 
+  ChevronRight, 
+  Award, 
   Mail, 
   Phone, 
   MapPin, 
-  ArrowUpRight, 
   Search, 
   Globe as GlobeIcon, 
   Play, 
-  FileText 
+  FileText, 
+  ExternalLink, 
+  ArrowUpRight 
 } from 'lucide-react';
 
 // 라이브러리 에러 방지를 위한 인라인 SVG 아이콘 컴포넌트 정의
@@ -31,13 +33,11 @@ const App = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  // 시그니처 로고 컬러 정의 (#EE7123)
   const brandColor = "#EE7123";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
       const sections = ['home', 'company', 'create', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
@@ -70,29 +70,17 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-pretendard selection:bg-[#EE7123] selection:text-white scroll-smooth">
-      {/* Navigation */}
       <nav className={`fixed w-full z-[100] transition-all duration-500 ${isScrolled ? 'bg-white py-3 shadow-md border-b border-slate-100' : 'bg-transparent py-6'}`}>
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 flex justify-between items-center">
           <div className="flex items-center">
-            {/* 시그니처 로고 스타일 적용 */}
             <a href="#home" className={`text-2xl tracking-tight transition-colors duration-300 flex items-baseline gap-1 ${!isScrolled ? 'text-white' : 'text-slate-900'}`}>
               <span className="font-black" style={{ color: brandColor }}>ART</span>
               <span className="font-light" style={{ color: brandColor }}>DESIGN</span>
             </a>
           </div>
-          
-          {/* Desktop Menu - Pretendard Bold & Size 15px 적용 */}
           <div className="hidden lg:flex items-center space-x-12 group/nav">
             {navLinks.map((link) => (
-              <a 
-                key={link.id} 
-                href={`#${link.id}`} 
-                className={`group relative h-7 overflow-hidden text-[15px] font-bold tracking-tight transition-all duration-300 
-                  group-hover/nav:opacity-40 hover:!opacity-100
-                  ${!isScrolled ? 'text-white' : 'text-slate-700'} 
-                  ${activeSection === link.id ? '!opacity-100' : ''}`}
-                style={{ color: activeSection === link.id ? brandColor : '' }}
-              >
+              <a key={link.id} href={`#${link.id}`} className={`group relative h-7 overflow-hidden text-[15px] font-bold tracking-tight transition-all duration-300 group-hover/nav:opacity-40 hover:!opacity-100 ${!isScrolled ? 'text-white' : 'text-slate-700'} ${activeSection === link.id ? '!opacity-100' : ''}`} style={{ color: activeSection === link.id ? brandColor : '' }}>
                 <div className="transition-transform duration-500 ease-in-out group-hover:-translate-y-1/2 flex flex-col items-center">
                   <span className="h-7 flex items-center justify-center">{link.en}</span>
                   <span className="h-7 flex items-center justify-center font-black" style={{ color: brandColor }}>{link.kr}</span>
@@ -100,289 +88,80 @@ const App = () => {
               </a>
             ))}
           </div>
-
           <div className={`hidden lg:flex items-center space-x-6 ${!isScrolled ? 'text-white' : 'text-slate-900'}`}>
-            <button className="transition-colors opacity-80 hover:opacity-100 group">
-              <Search size={20} className="group-hover:text-[#EE7123] transition-colors" />
-            </button>
-            <div className="flex items-center space-x-1 cursor-pointer transition-colors text-[14px] font-bold opacity-80 hover:opacity-100 hover:text-[#EE7123]">
-              <GlobeIcon size={18} />
-              <span>KR</span>
-            </div>
+            <button className="transition-colors opacity-80 hover:opacity-100 group"><Search size={20} className="group-hover:text-[#EE7123] transition-colors" /></button>
+            <div className="flex items-center space-x-1 cursor-pointer transition-colors text-[14px] font-bold opacity-80 hover:opacity-100 hover:text-[#EE7123]"><GlobeIcon size={18} /><span>KR</span></div>
           </div>
-
-          <button className={`lg:hidden p-2 rounded-lg ${!isScrolled ? 'text-white' : 'text-slate-900'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          <button className={`lg:hidden p-2 rounded-lg ${!isScrolled ? 'text-white' : 'text-slate-900'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>{isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
         </div>
-
-        {/* Mobile Menu Overlay */}
         <div className={`fixed inset-0 bg-white z-[90] flex flex-col pt-24 px-8 transition-transform duration-500 lg:hidden ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           {navLinks.map((link) => (
-            <a 
-              key={link.id} 
-              href={`#${link.id}`} 
-              className="text-3xl font-black mb-8 tracking-tighter border-b border-slate-100 pb-4 flex flex-col group"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
+            <a key={link.id} href={`#${link.id}`} className="text-3xl font-black mb-8 tracking-tighter border-b border-slate-100 pb-4 flex flex-col group" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="text-slate-300 text-sm tracking-widest mb-1">{link.en}</span>
-              <span className="flex justify-between items-center group-hover:text-[#EE7123] transition-colors">
-                {link.kr}
-                <ArrowUpRight size={24} />
-              </span>
+              <span className="flex justify-between items-center group-hover:text-[#EE7123] transition-colors">{link.kr}<ArrowUpRight size={24} /></span>
             </a>
           ))}
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section id="home" className="relative h-[90vh] md:h-screen flex items-center overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-gradient-to-r from-black/70 via-black/30 to-black/60 absolute z-10" />
           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80')] bg-cover bg-center animate-subtle-zoom" />
         </div>
-        
         <div className="relative z-10 max-w-[1600px] mx-auto px-6 lg:px-12 w-full text-white">
-          <div className="overflow-hidden mb-4">
-            <span className="inline-block font-bold tracking-[0.4em] text-sm animate-in slide-in-from-bottom duration-700 uppercase italic" style={{ color: brandColor }}>Visual & Motion Studio</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black mb-8 leading-[1.2] tracking-tighter animate-in fade-in slide-in-from-bottom-12 duration-1000">
-            VISUALIZING<br />THE BRAND<br /><span className="text-transparent border-t-0 bg-clip-text bg-gradient-to-r from-white to-white/40 font-serif italic">EXPERIENCE.</span>
-          </h1>
-          <p className="max-w-2xl text-slate-300 text-lg md:text-xl mb-12 font-light leading-relaxed animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-200">
-            시선을 사로잡는 시각 언어로 브랜드의 가치를 증명합니다. 카달로그, 브로슈어, 영상디자인까지 ArtDesign은 독보적인 크리에이티브를 지향합니다.
-          </p>
-          <div className="flex animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-300">
-            <a href="#create" className="text-white px-10 py-5 font-bold rounded-full hover:bg-white hover:text-slate-900 transition-all flex items-center group shadow-xl shadow-orange-950/40" style={{ backgroundColor: brandColor }}>
-              PROJECTS <ArrowUpRight className="ml-2 group-hover:rotate-45 transition-transform" size={20} />
-            </a>
-          </div>
+          <div className="overflow-hidden mb-4"><span className="inline-block font-bold tracking-[0.4em] text-sm animate-in slide-in-from-bottom duration-700 uppercase italic" style={{ color: brandColor }}>Visual & Motion Studio</span></div>
+          <h1 className="text-4xl md:text-5xl font-black mb-8 leading-[1.2] tracking-tighter animate-in fade-in slide-in-from-bottom-12 duration-1000">VISUALIZING<br />THE BRAND<br /><span className="text-transparent border-t-0 bg-clip-text bg-gradient-to-r from-white to-white/40 font-serif italic">EXPERIENCE.</span></h1>
+          <p className="max-w-2xl text-slate-300 text-lg md:text-xl mb-12 font-light leading-relaxed animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-200">시선을 사로잡는 시각 언어로 브랜드의 가치를 증명합니다. 카달로그, 브로슈어, 영상디자인까지 ArtDesign은 독보적인 크리에이티브를 지향합니다.</p>
+          <div className="flex animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-300"><a href="#create" className="text-white px-10 py-5 font-bold rounded-full hover:bg-white hover:text-slate-900 transition-all flex items-center group shadow-xl shadow-orange-950/40" style={{ backgroundColor: brandColor }}>PROJECTS <ArrowUpRight className="ml-2 group-hover:rotate-45 transition-transform" size={20} /></a></div>
         </div>
       </section>
 
-      {/* COMPANY Section */}
       <section id="company" className="py-32">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-20 items-start">
             <div className="sticky top-32">
               <span className="font-bold tracking-[0.3em] text-sm uppercase mb-6 block" style={{ color: brandColor }}>01 / COMPANY</span>
               <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter">기업의 본질을 꿰뚫는<br />디자인 전문 그룹.</h2>
-              <p className="text-slate-500 text-lg md:text-xl leading-relaxed mb-10 font-light max-w-xl">
-                ArtDesign은 단순한 미적 추구를 넘어 기업의 전략적 메시지를 시각화하는 파트너입니다. 20년 이상의 노하우를 가진 디렉터진과 크리에이티브 팀이 카달로그부터 브랜딩 영상까지 통합적인 비주얼 솔루션을 제공합니다.
-              </p>
+              <p className="text-slate-500 text-lg md:text-xl leading-relaxed mb-10 font-light max-w-xl">ArtDesign은 단순한 미적 추구를 넘어 기업의 전략적 메시지를 시각화하는 파트너입니다. 창원 마산의 노하우를 가진 크리에이티브 팀이 비주얼 솔루션을 제공합니다.</p>
               <div className="grid grid-cols-2 gap-8 mb-10">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-orange-50 rounded-xl" style={{ color: brandColor }}><FileText size={24}/></div>
-                  <div>
-                    <div className="font-bold font-pretendard">Print Media</div>
-                    <div className="text-xs text-slate-400 font-pretendard">Catalogs & Leaflets</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-orange-50 rounded-xl" style={{ color: brandColor }}><Play size={24}/></div>
-                  <div>
-                    <div className="font-bold font-pretendard">Motion Film</div>
-                    <div className="text-xs text-slate-400 font-pretendard">Video Design</div>
-                  </div>
-                </div>
+                <div className="flex items-start space-x-4"><div className="p-3 bg-orange-50 rounded-xl" style={{ color: brandColor }}><FileText size={24}/></div><div><div className="font-bold font-pretendard">Print Media</div><div className="text-xs text-slate-400 font-pretendard">Catalogs & Leaflets</div></div></div>
+                <div className="flex items-start space-x-4"><div className="p-3 bg-orange-50 rounded-xl" style={{ color: brandColor }}><Play size={24}/></div><div><div className="font-bold font-pretendard">Motion Film</div><div className="text-xs text-slate-400 font-pretendard">Video Design</div></div></div>
               </div>
             </div>
-            
             <div className="space-y-12">
               <div className="aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden shadow-2xl relative border border-slate-100">
                 <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&q=80" alt="Design Studio" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 opacity-5 mix-blend-multiply" style={{ backgroundColor: brandColor }} />
               </div>
               <div className="grid grid-cols-2 gap-10">
-                <div>
-                  <div className="text-4xl font-black text-slate-900 mb-2 font-pretendard tracking-tight">3,500+</div>
-                  <div className="text-sm font-bold text-slate-400 uppercase tracking-widest font-pretendard">Printed Works</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-black text-slate-900 mb-2 font-pretendard tracking-tight">24Yrs</div>
-                  <div className="text-sm font-bold text-slate-400 uppercase tracking-widest font-pretendard">Studio History</div>
-                </div>
+                <div><div className="text-4xl font-black text-slate-900 mb-2 font-pretendard tracking-tight">3,500+</div><div className="text-sm font-bold text-slate-400 uppercase tracking-widest font-pretendard">Printed Works</div></div>
+                <div><div className="text-4xl font-black text-slate-900 mb-2 font-pretendard tracking-tight">24Yrs</div><div className="text-sm font-bold text-slate-400 uppercase tracking-widest font-pretendard">Studio History</div></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHAT WE CREATE Section */}
       <section id="create" className="py-32 bg-slate-950 text-white overflow-hidden">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div>
-              <span className="font-bold tracking-[0.3em] text-sm uppercase mb-4 block" style={{ color: brandColor }}>02 / WHAT WE CREATE</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter italic font-pretendard">Portfolio</h2>
-            </div>
-            <div className="flex flex-wrap gap-4 text-xs font-black tracking-widest font-pretendard">
-              {['ALL', 'CATALOG', 'BROCHURE', 'LEAFLET', 'VIDEO'].map((cat) => (
-                <button key={cat} className={`px-6 py-3 rounded-full border border-white/10 hover:bg-white hover:text-slate-950 transition-all ${cat === 'ALL' ? 'bg-white text-slate-950' : ''}`}>
-                  {cat}
-                </button>
-              ))}
-            </div>
+            <div><span className="font-bold tracking-[0.3em] text-sm uppercase mb-4 block" style={{ color: brandColor }}>02 / WHAT WE CREATE</span><h2 className="text-4xl md:text-6xl font-black tracking-tighter italic font-pretendard">Portfolio</h2></div>
+            <div className="flex flex-wrap gap-4 text-xs font-black tracking-widest font-pretendard">{['ALL', 'CATALOG', 'BROCHURE', 'LEAFLET', 'VIDEO'].map((cat) => (<button key={cat} className={`px-6 py-3 rounded-full border border-white/10 hover:bg-white hover:text-slate-950 transition-all ${cat === 'ALL' ? 'bg-white text-slate-950' : ''}`}>{cat}</button>))}</div>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
             {projects.map((project, idx) => (
               <div key={idx} className="group cursor-pointer">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-slate-800 shadow-2xl">
                   <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: `${brandColor}CC` }}>
-                    <div className="text-center px-8">
-                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-slate-900 mx-auto mb-4 transition-transform group-hover:scale-110">
-                        {project.category === 'VIDEO' ? <Play size={24} /> : <ArrowUpRight size={24} />}
-                      </div>
-                      <p className="text-sm font-bold tracking-widest text-white uppercase font-pretendard">Project Detail</p>
-                    </div>
-                  </div>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center" style={{ backgroundColor: `${brandColor}CC` }}><div className="text-center px-8"><div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-slate-900 mx-auto mb-4 transition-transform group-hover:scale-110">{project.category === 'VIDEO' ? <Play size={24} /> : <ArrowUpRight size={24} />}</div><p className="text-sm font-bold tracking-widest text-white uppercase font-pretendard">Project Detail</p></div></div>
                 </div>
-                <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-[11px] font-bold tracking-widest uppercase font-pretendard" style={{ color: brandColor }}>{project.category}</span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2 group-hover:text-[#EE7123] transition-colors tracking-tight font-pretendard">{project.title}</h3>
-                  <p className="text-slate-500 font-medium text-sm font-pretendard">{project.year} | Visual Direction</p>
-                </div>
+                <div><div className="flex items-center space-x-2 mb-2"><span className="text-[11px] font-bold tracking-widest uppercase font-pretendard" style={{ color: brandColor }}>{project.category}</span></div><h3 className="text-2xl font-bold mb-2 group-hover:text-[#EE7123] transition-colors tracking-tight font-pretendard">{project.title}</h3><p className="text-slate-500 font-medium text-sm font-pretendard">{project.year} | Visual Direction</p></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CONTACT Section */}
       <section id="contact" className="py-32">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-24">
-            <div>
-              <span className="font-bold tracking-[0.3em] text-sm uppercase mb-6 block" style={{ color: brandColor }}>03 / CONTACT US</span>
-              <h2 className="text-4xl md:text-6xl font-black mb-12 tracking-tighter italic font-pretendard">Work Together</h2>
-              <div className="space-y-10">
-                <div className="flex items-start space-x-6">
-                  <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-orange-100" style={{ color: brandColor }}>
-                    <MapPin size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-xs text-slate-400 uppercase tracking-[0.2em] mb-2 font-pretendard">Studio</h4>
-                    <p className="text-xl font-bold font-pretendard">경남 창원시 마산회원구 3·15대로 509 3층<br />ArtDesign</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-6">
-                  <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-orange-100" style={{ color: brandColor }}>
-                    <Mail size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-xs text-slate-400 uppercase tracking-[0.2em] mb-2 font-pretendard">New Project</h4>
-                    <p className="text-xl font-bold font-pretendard">work@artdesign.co.kr</p>
-                    <p className="text-slate-500 font-medium mt-1 font-pretendard">전화 문의: 0507-1454-1409</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-slate-50 p-12 rounded-[40px] border border-slate-100 shadow-sm">
-              <h3 className="text-2xl font-bold mb-10 tracking-tight font-pretendard">프로젝트 의뢰 및 견적 문의</h3>
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 font-pretendard">Name</label>
-                    <input type="text" className="w-full bg-white border-none rounded-2xl p-5 shadow-sm focus:ring-2 focus:ring-[#EE7123] transition-all outline-none font-pretendard" placeholder="성함 또는 기업명" />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 font-pretendard">Email</label>
-                    <input type="email" className="w-full bg-white border-none rounded-2xl p-5 shadow-sm focus:ring-2 focus:ring-[#EE7123] transition-all outline-none font-pretendard" placeholder="연락받으실 이메일" />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 font-pretendard">Select Service</label>
-                  <select className="w-full bg-white border-none rounded-2xl p-5 shadow-sm focus:ring-2 focus:ring-[#EE7123] transition-all outline-none appearance-none font-pretendard">
-                    <option>카달로그 / 브로슈어 / 리플렛</option>
-                    <option>영상디자인 / 모션그래픽</option>
-                    <option>브랜드 아이덴티티 (BI/CI)</option>
-                    <option>기타 디자인 문의</option>
-                  </select>
-                </div>
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 font-pretendard">Message</label>
-                  <textarea rows={4} className="w-full bg-white border-none rounded-2xl p-5 shadow-sm focus:ring-2 focus:ring-[#EE7123] transition-all outline-none resize-none font-pretendard" placeholder="프로젝트의 예산, 일정 등 세부사항을 적어주세요." />
-                </div>
-                <button className="w-full text-white font-black tracking-widest py-6 rounded-2xl hover:bg-slate-800 transition-all transform hover:-translate-y-1 shadow-xl uppercase shadow-orange-900/10 font-pretendard" style={{ backgroundColor: brandColor }}>
-                  Send Proposal
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white pt-24 pb-12 border-t border-white/5">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row justify-between items-start mb-20 gap-16">
-            <div className="max-w-sm">
-              <h2 className="text-3xl italic mb-8 tracking-tighter flex gap-1 items-baseline font-pretendard">
-                <span className="font-black" style={{ color: brandColor }}>ART</span>
-                <span className="font-light" style={{ color: brandColor }}>DESIGN</span>
-              </h2>
-              <p className="text-slate-400 leading-relaxed font-light mb-8 font-pretendard">
-                기업의 비전을 시각화하는 Creative 파트너.<br />
-                우리는 메시지의 본질을 가장 강력한 디자인으로 전달합니다.
-              </p>
-              <div className="flex space-x-4">
-                {[Instagram, Facebook, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-white transition-all hover:bg-white/5">
-                    <Icon size={20} />
-                  </a>
-                ))}
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-              <div className="flex flex-col space-y-4">
-                <span className="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 font-pretendard">Navigation</span>
-                {navLinks.map(link => (
-                  <a key={link.id} href={`#${link.id}`} className="text-slate-400 hover:text-white transition-colors font-medium text-sm font-pretendard">{link.en} / {link.kr}</a>
-                ))}
-              </div>
-              <div className="flex flex-col space-y-4">
-                <span className="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 font-pretendard">Connect</span>
-                <span className="text-slate-400 text-sm cursor-pointer hover:text-white font-pretendard">Instagram</span>
-                <span className="text-slate-400 text-sm cursor-pointer hover:text-white font-pretendard">Behance</span>
-                <span className="text-slate-400 text-sm cursor-pointer hover:text-white font-pretendard">YouTube</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-slate-500 text-xs italic font-pretendard">© 2024 ArtDesign Visual Group. All rights reserved.</p>
-            <div className="flex space-x-8 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] font-pretendard">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      <style>{`
-        /* Pretendard Font Import */
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        
-        .font-pretendard {
-          font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-        }
-
-        @keyframes subtle-zoom {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.05); }
-        }
-        .animate-subtle-zoom {
-          animation: subtle-zoom 20s ease-out infinite alternate;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default App;
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-1

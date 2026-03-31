@@ -1,7 +1,7 @@
-/* 기존 @import "tailwindcss"; 대신 아래 코드로 교체해 보세요 */
-@theme {
-  /* 테마 설정이 필요한 경우 여기에 작성 */
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@theme {
+  /* 테마 설정 */
+}
