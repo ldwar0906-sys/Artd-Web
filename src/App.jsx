@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
+// 에러가 났던 Instagram, Facebook 등을 빼고 확실한 것들만 넣었습니다.
+import { Menu, X, ChevronRight, Award, Mail, Phone, MapPin, Search, Globe as GlobeIcon, Play, FileText, ExternalLink } from 'lucide-react';
   Menu, 
   X, 
   Mail, 
