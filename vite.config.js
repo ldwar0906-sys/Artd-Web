@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/react-vite' // 또는 @vitejs/plugin-react
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // 이 줄이 핵심입니다! 경로를 루트로 고정해 줍니다.
+  // 중요: 본인의 저장소 이름인 'Artd-Web'을 앞뒤에 슬래시(/)를 붙여서 넣으세요.
+  base: '/Artd-Web/', 
 })
